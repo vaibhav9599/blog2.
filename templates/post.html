@@ -1,0 +1,79 @@
+{% include "header.html" %}
+<!--<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>-->
+
+{% import "bootstrap/wtf.html" as wtf %}
+  <!-- Page Header -->
+<header class="masthead" style="background-image: url('{{post.img_url}}')" xmlns="http://www.w3.org/1999/html">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.title}}</h1>
+            <h2 class="subheading">{{post.subtitle}}</h2>
+            <span class="meta">Posted by
+              <a href="#">{{a.name}}</a>
+              on {{post.date}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {{ post.body|safe }}
+          <hr>
+
+            <div class="clearfix">
+              {% if id==3 %}
+            <a class="btn btn-primary float-right" href="{{ url_for('edit_post',post_id=post.id) }}">Edit Post</a>
+            {% endif %}
+            </div>
+
+
+
+<!--           Comments Area -->
+          <div class="col-lg-9 col-md-11 mx-auto comment">
+            <h2 class="subheading">Comment</h2>
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+
+  </div>
+
+
+
+          </div>
+
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 col-md-11 mx-auto comment">
+        <h2 class="subheading">Comments</h2>
+        {% for i in range(lc) %}
+        {% if c[i].post_id==p_id %}
+          {% for j in all_us %}
+          {% if j.id==c[i].author_id %}
+          <p><strong><img src="{{ j.email | gravatar(size=50, rating='x') }}"> {{ j.name }}</strong>{{ c[i].comment|safe }}</p>
+          <hr>
+{% endif %}
+        {% endfor %}
+        <div>
+
+        </div>
+{% endif %}
+        {% endfor %}
+
+
+</div>
+      </div>
+      </div>
+  </article>
+
+  <hr>
+{% include "footer.html" %}
