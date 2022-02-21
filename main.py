@@ -10,7 +10,7 @@ from flask_ckeditor import CKEditorField
 
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import CreatePostForm
-from flask_gravatar import Gravatar
+from flask_gravatar import GravatarA
 from wtforms import StringField,SubmitField,PasswordField
 from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
